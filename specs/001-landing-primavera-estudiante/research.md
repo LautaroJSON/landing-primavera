@@ -94,16 +94,21 @@ manejo de `prefers-reduced-motion`, estructura de contenido, hosting).
 - **Alternatives considered**: `<img>` plano con optimización manual — más trabajo
   y más propenso a error humano (olvidar un tamaño responsive o un formato).
 
-## 7. Deploy: Vercel o Netlify
+## 7. Deploy: GitHub Pages
 
-- **Decision**: build automático desde GitHub en Vercel o Netlify (ambos
-  soportan `astro build` con adapter estático out-of-the-box); la elección final
-  entre los dos queda como detalle operativo sin impacto en el diseño del feature
-  (cualquiera sirve un sitio estático detrás de CDN).
-- **Rationale**: ambos ofrecen preview deployments por PR, HTTPS y CDN global sin
-  configuración adicional, adecuado para un proyecto de portfolio sin backend.
-- **Alternatives considered**: GitHub Pages (viable pero sin preview deployments
-  por PR); no se descarta, pero el usuario ya acotó a Vercel/Netlify.
+- **Decision**: GitHub Pages vía GitHub Actions (`withastro/action` +
+  `actions/deploy-pages`), build automático en cada push a `main`
+  (`.github/workflows/deploy.yml`). Al ser un repo de proyecto (no
+  `usuario.github.io`), el sitio se sirve en `/landing-primavera/`, por lo que
+  `astro.config.mjs` define `site`/`base` acordes.
+- **Rationale**: sin costo, sin cuenta de terceros, HTTPS y CDN incluidos, y
+  suficiente para un sitio 100% estático de portfolio sin backend; evita
+  depender de una cuenta externa (Vercel/Netlify) para un feature que no la
+  necesita.
+- **Alternatives considered**: Vercel o Netlify (dan preview deployments por
+  PR, que GitHub Pages no da out-of-the-box) — se descartaron porque el
+  proyecto decidió mantener el deploy dentro del mismo ecosistema de GitHub
+  sin depender de una cuenta/servicio adicional.
 
 ## 8. Testing / Validación de calidad
 

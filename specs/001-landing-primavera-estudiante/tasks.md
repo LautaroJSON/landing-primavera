@@ -215,17 +215,17 @@ dirección de referencia y al menos un medio de acceso, sin depender de otras se
 
 **Purpose**: Mejoras que afectan a varias/todas las historias de usuario
 
-- [X] T033 [P] Configurar optimización de imágenes vía `astro:assets` (formatos
+- [x] T033 [P] Configurar optimización de imágenes vía `astro:assets` (formatos
       WebP/AVIF, tamaños responsive) para las imágenes del hero y de actividades en
       `astro.config.mjs` — ya cubierto por `<Image>` con `widths`/`sizes` en
       `Hero.astro` (T014): el build confirma output `.webp` responsive sin config
       adicional (Actividades no tiene imágenes, ver nota de T021)
-- [X] T034 [P] Auditoría de contraste WCAG AA en todas las secciones (FR-011, SC-005) —
+- [x] T034 [P] Auditoría de contraste WCAG AA en todas las secciones (FR-011, SC-005) —
       revisado manualmente cada combinación texto/fondo (hero sobre el gradiente más
       oscuro, footer, cards, cronograma, CTAs); todas superan 4.5:1. Sin herramienta de
       auditoría automática disponible en este entorno — recomendado correr Lighthouse
       (ver T036) antes de dar el feature por cerrado
-- [X] T035 [P] Auditoría de navegación por teclado en Nav, ambos CTAs y todos los links
+- [x] T035 [P] Auditoría de navegación por teclado en Nav, ambos CTAs y todos los links
       (FR-012) — todos los elementos interactivos son `<a>`/`<button>` nativos (sin
       `<div>` con manejadores de click), con `focus-visible` global definido en
       `global.css`; se agregó además un skip-link ("Saltar al contenido") en `Nav.astro`
@@ -236,14 +236,14 @@ dirección de referencia y al menos un medio de acceso, sin depender de otras se
       `astro dev`/`astro preview` sirven la página sin errores, y las animaciones solo
       tocan `transform`/`opacity` (nunca layout). Falta la medición real en navegador —
       ver `quickstart.md` → Auditorías automatizadas
-- [X] T037 [P] Agregar favicon, `robots.txt` y meta tags (title/description/OG) en
+- [x] T037 [P] Agregar favicon, `robots.txt` y meta tags (title/description/OG) en
       `public/` y `src/layouts/BaseLayout.astro`
-- [ ] T038 Configurar el deploy en Vercel o Netlify con build automático desde GitHub —
-      **NO completado**: requiere una cuenta de Vercel/Netlify del usuario y un repo
-      Git con remoto, que este entorno no tiene (el proyecto ni siquiera es un repo Git
-      todavía). Se agregó `netlify.toml` (build/publish) para que el deploy en Netlify
-      sea inmediato una vez conectado el repo; Vercel detecta Astro automáticamente sin
-      config adicional
+- [x] T038 Configurar el deploy en GitHub Pages con build automático vía GitHub
+      Actions — se agregó `.github/workflows/deploy.yml` (`withastro/action` +
+      `actions/deploy-pages`, corre en cada push a `main`) y se configuró
+      `site`/`base` en `astro.config.mjs` para el subpath `/landing-primavera/`
+      del repo. Falta solo que el usuario habilite "GitHub Actions" como fuente
+      en Settings → Pages del repo (paso manual de GitHub, no de código).
 - [ ] T039 Ejecutar el checklist completo de `quickstart.md` (las 4 historias de
       usuario + los edge cases) de punta a punta antes de dar el feature por terminado —
       **parcial**: verificado por build/inspección de HTML (estructura, atributos,

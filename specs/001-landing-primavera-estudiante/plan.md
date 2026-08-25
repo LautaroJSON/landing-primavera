@@ -17,7 +17,7 @@ hero que rota automáticamente entre varias imágenes cada 5 segundos con crossf
 (FR-017/FR-018), sin interferir con el parallax. Se construye
 como sitio estático con Astro (salida SSG), estilado con Tailwind CSS, animado con
 GSAP + ScrollTrigger (scroll suave opcional vía Lenis), imágenes optimizadas con
-`astro:assets`, y desplegado en Vercel o Netlify vía build automático desde GitHub.
+`astro:assets`, y desplegado en GitHub Pages vía GitHub Actions.
 
 ## Technical Context
 
@@ -40,8 +40,8 @@ Lighthouse (Performance/Accessibility/Best Practices) como gate de calidad. Ver
 `research.md` para el razonamiento completo.
 
 **Target Platform**: Web — navegadores evergreen (Chrome, Firefox, Safari, Edge)
-desde mobile hasta desktop; hosting estático en Vercel o Netlify (CDN + build
-automático desde GitHub)
+desde mobile hasta desktop; hosting estático en GitHub Pages (CDN + build
+automático vía GitHub Actions en cada push a `main`)
 
 **Project Type**: web (sitio estático de una sola página)
 
