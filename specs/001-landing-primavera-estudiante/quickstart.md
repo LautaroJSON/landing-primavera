@@ -8,7 +8,7 @@ fase de implementación.
 
 - Node.js 20 LTS y un gestor de paquetes (`npm`/`pnpm`).
 - Proyecto Astro inicializado con las dependencias de `plan.md` (Astro, Tailwind,
-  GSAP + ScrollTrigger, Lenis, `astro:assets`) instaladas.
+  GSAP + ScrollTrigger, Lenis, `astro:assets`, Leaflet) instaladas.
 
 ## Setup
 
@@ -56,6 +56,17 @@ emulation) y repetir los relevantes en desktop.
 1. Scrollear hasta "Cómo llegar".
 2. **Esperado**: referencia a Plaza de Mayo, Buenos Aires y al menos un medio de
    acceso (ej. transporte público) visibles (SC-002).
+3. **Esperado**: al entrar la sección en el viewport, aparece un mapa interactivo
+   centrado en Plaza de Mayo con un marcador; se puede desplazar/acercar con
+   mouse, touch, y con teclado (foco + flechas/+/-) (FR-019).
+4. Abrir DevTools → Network, recargar la página y esperar a que cargue el hero
+   **sin** scrollear más allá. **Esperado**: no hay requests de Leaflet (JS ni
+   CSS) ni de tiles de CartoDB en esa lista — recién aparecen al scrollear hasta
+   "Cómo llegar" (FR-020, SC-008).
+5. En DevTools → Network, bloquear las requests a `basemaps.cartocdn.com` (o
+   desactivar JavaScript) y recargar. **Esperado**: la sección sigue mostrando
+   la dirección de referencia y los medios de acceso, sin quedar vacía ni rota
+   (FR-021).
 
 ## Validación de edge cases
 
@@ -91,4 +102,7 @@ Goals en `plan.md`); 0 errores de contraste reportados por Lighthouse
       Principio I).
 - [ ] `prefers-reduced-motion` respetado (FR-009).
 - [ ] Navegación completa por teclado, con foco visible (FR-012).
+- [ ] El mapa interactivo de "Cómo llegar" no descarga nada hasta entrar en
+      viewport, y la referencia textual sigue funcionando si el mapa falla
+      (FR-019/FR-020/FR-021).
 - [ ] Lighthouse Performance ≥ 90 y Accessibility ≥ 90 en mobile.

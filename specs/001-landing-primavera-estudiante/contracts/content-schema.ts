@@ -35,6 +35,9 @@ export interface PuntoDeAcceso {
   direccionReferencia: string;
   /** al menos un elemento (FR-004) */
   mediosDeAcceso: string[];
+  /** coordenadas del marcador del mapa interactivo (FR-019) */
+  lat: number;
+  lng: number;
 }
 
 export type EstadoRegistro = "idle" | "confirmado";

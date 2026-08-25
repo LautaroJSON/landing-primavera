@@ -93,3 +93,36 @@ button:focus-visible {
     transition: none;
   }
 }
+
+/* Mapa interactivo de "Cómo llegar" (FR-019) — reskin de Leaflet para que
+   combine con la identidad papel/tinta en vez del look genérico por
+   defecto (bordes redondeados, blur suave). Los !important son necesarios
+   porque el CSS de Leaflet se inyecta de forma diferida (import dinámico) y
+   puede quedar después de este archivo en el cascade. */
+.leaflet-popup-content-wrapper {
+  border-radius: 0;
+  border: 2px solid var(--color-tinta);
+  box-shadow: 4px 4px 0 0 var(--color-tinta);
+}
+
+.leaflet-popup-content {
+  margin: 0.6rem 0.9rem;
+  font-family: var(--font-body);
+  color: var(--color-tinta);
+}
+
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+
+.leaflet-control-zoom a {
+  border-radius: 0 !important;
+  border-color: var(--color-tinta) !important;
+  color: var(--color-tinta) !important;
+}
+
+.leaflet-control-attribution {
+  background: var(--color-papel) !important;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+}

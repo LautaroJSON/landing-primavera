@@ -91,8 +91,10 @@ Un visitante que ya decidió asistir necesita saber cómo llegar a Plaza de Mayo
 frente a saber qué es el evento y poder registrarse.
 
 **Independent Test**: Se puede probar navegando a la sección "Cómo llegar" y
-verificando que contiene una referencia clara a la ubicación y opciones de acceso,
-sin depender de otras secciones.
+verificando que contiene una referencia clara a la ubicación, opciones de acceso y
+un mapa interactivo centrado en Plaza de Mayo, sin depender de otras secciones; y
+verificando en la pestaña Network que el mapa no descarga nada hasta que la
+sección entra en el viewport.
 
 **Acceptance Scenarios**:
 
@@ -100,6 +102,18 @@ sin depender de otras secciones.
    muestra, **Then** ve la dirección/referencia de ubicación (Plaza de Mayo, Buenos
    Aires) y al menos una referencia de cómo acceder (por ejemplo, transporte público
    cercano).
+2. **Given** un visitante llega a la sección "Cómo llegar" con JavaScript
+   habilitado, **When** el mapa interactivo entra en el viewport, **Then** ve un
+   mapa centrado en Plaza de Mayo con un marcador que señala el punto del evento,
+   y puede desplazarlo/acercarlo con mouse, touch o teclado.
+3. **Given** un visitante recién carga la landing, **When** el hero termina de
+   renderizarse, **Then** el mapa interactivo de "Cómo llegar" todavía no
+   descargó su JavaScript ni sus tiles (verificable en la pestaña Network del
+   navegador), de forma que no afecta el tiempo de carga inicial.
+4. **Given** un visitante cuyo navegador no ejecuta JavaScript o cuya conexión
+   falla al cargar el mapa, **When** llega a la sección "Cómo llegar", **Then**
+   sigue viendo la dirección de referencia y los medios de acceso en texto, sin
+   que la sección quede vacía o rota.
 
 ---
 
@@ -124,6 +138,10 @@ sin depender de otras secciones.
   de imágenes del hero? La rotación automática de fondos se detiene o se muestra
   sin animación de crossfade (cambio directo, sin transición), igual que el resto
   de las animaciones de scroll (ver FR-018).
+- ¿Qué ve un visitante si el mapa interactivo de "Cómo llegar" no llega a cargar
+  (falla de red o JavaScript deshabilitado)? Debe seguir viendo la dirección de
+  referencia y los medios de acceso en texto (ver FR-004); la sección no debe
+  quedar vacía ni mostrar un error visible.
 
 ## Requirements _(mandatory)_
 
@@ -179,6 +197,19 @@ sin depender de otras secciones.
   "reducir movimiento" (FR-009), el sistema DEBE detener la rotación automática o
   quitar la animación de crossfade (cambio directo entre imágenes, si es que
   continúan rotando).
+- **FR-019**: El sistema DEBE mostrar, dentro de la sección "Cómo llegar", un
+  mapa interactivo (tiles de OpenStreetMap/CartoDB Positron) centrado en Plaza
+  de Mayo, Buenos Aires, con un marcador que identifique el punto de encuentro
+  del evento; el visitante DEBE poder desplazarlo y acercarlo/alejarlo con
+  mouse, touch o teclado.
+- **FR-020**: El mapa interactivo (FR-019) NO DEBE afectar el tiempo de carga
+  inicial de la página: su JavaScript y sus tiles se cargan de forma diferida,
+  únicamente cuando la sección "Cómo llegar" entra en el viewport del
+  visitante.
+- **FR-021**: Si el mapa interactivo (FR-019) no llega a cargar (falla de red o
+  JavaScript deshabilitado), el sistema DEBE seguir mostrando la referencia
+  textual de ubicación y los medios de acceso (FR-004) sin que la sección quede
+  vacía o rota.
 
 ### Key Entities
 
@@ -214,6 +245,10 @@ sin depender de otras secciones.
   del visitante, con una transición percibida como suave (sin parpadeo ni salto
   abrupto) en el 100% de las rotaciones, mientras el scroll y el efecto parallax
   siguen respondiendo con fluidez en simultáneo (consistente con SC-004).
+- **SC-008**: El mapa interactivo de "Cómo llegar" no descarga JavaScript ni
+  tiles hasta que la sección entra en el viewport, verificable en la pestaña
+  Network del navegador inmediatamente después de que carga el hero (consistente
+  con FR-020).
 
 ## Assumptions
 
@@ -223,10 +258,14 @@ sin depender de otras secciones.
   específicamente para este proyecto de portfolio; no representa programación real.
 - La landing es de una sola página (single-page) con navegación por scroll/anclas
   entre secciones, sin rutas adicionales.
-- "Cómo llegar" se resuelve con una referencia textual/gráfica estática a la
-  ubicación (dirección, transporte público) en lugar de un mapa interactivo
-  embebido de un proveedor externo, para evitar dependencias de terceros
-  innecesarias.
+- "Cómo llegar" combina la referencia textual (dirección, transporte público)
+  con un mapa interactivo propio (Leaflet + tiles de OpenStreetMap/CartoDB
+  Positron, ver FR-019/FR-020/FR-021) en lugar de un `<iframe>` embebido de un
+  proveedor externo (ej. Google Maps): esto da control total de estilos/marca
+  (marcador e interfaz del mapa reutilizan la paleta del sitio) y permite
+  diferir su carga hasta que la sección entra en viewport, algo que un iframe
+  de terceros no garantiza. La referencia textual se mantiene siempre visible
+  como fallback si el mapa no carga (FR-021).
 - No se requiere un sistema de autenticación ni cuentas de usuario.
 - El footer con la aclaración de proyecto ficticio (FR-007) aplica a toda la página,
   dado que es un sitio de una sola página.

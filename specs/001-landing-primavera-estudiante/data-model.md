@@ -55,15 +55,34 @@ repetido dentro del mismo cronograma.
 
 ## PuntoDeAcceso (Cómo llegar)
 
-Referencia estática de acceso al lugar del evento (FR-004).
+Referencia de acceso al lugar del evento (FR-004) + coordenadas del marcador del
+mapa interactivo (FR-019).
 
 | Campo                 | Tipo       | Notas                                                                      |
 | --------------------- | ---------- | -------------------------------------------------------------------------- |
 | `direccionReferencia` | `string`   | "Plaza de Mayo, Buenos Aires"                                              |
 | `mediosDeAcceso`      | `string[]` | Ej. líneas de subte/colectivo cercanas (contenido ficticio pero plausible) |
+| `lat`                 | `number`   | Latitud del marcador del mapa interactivo (FR-019)                         |
+| `lng`                 | `number`   | Longitud del marcador del mapa interactivo (FR-019)                        |
 
 **Validación**: `mediosDeAcceso` DEBE tener al menos un elemento (FR-004 exige "al
-menos una referencia de acceso").
+menos una referencia de acceso"); `lat`/`lng` DEBEN ser coordenadas válidas
+dentro del área de Buenos Aires (no se valida contra un servicio de geocoding
+externo — es contenido estático fijo, no input de usuario).
+
+**Mapa interactivo (FR-019/FR-020/FR-021)**: el componente `ComoLlegar.astro`
+monta un mapa Leaflet centrado en `[lat, lng]` con tiles de CartoDB Positron
+sobre datos OpenStreetMap, y un marcador (ícono propio, no el pin azul por
+defecto de Leaflet) en ese mismo punto. La carga de Leaflet (JS + CSS) se
+dispara con `import()` dinámico dentro del callback de un `IntersectionObserver`
+sobre el contenedor del mapa — nunca en el load inicial de la página (FR-020).
+El CSS de Leaflet se importa con el sufijo `?url` de Vite (en vez de un import
+de módulo CSS) específicamente para evitar que Vite inyecte un `<link
+rel="stylesheet">` eager en el `<head>` del build, que es el comportamiento por
+defecto incluso para imports dinámicos con specifier estático. Si el `import()`
+falla (sin red, JS deshabilitado), el contenido estático del contenedor
+(`[data-mapa-fallback]`: dirección + ícono) permanece visible sin cambios
+(FR-021).
 
 ## RegistroInteres (estado de interacción, no entidad persistida)
 
