@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import Actividades from "../components/Actividades.astro";
+import Cronograma from "../components/Cronograma.astro";
+import CtaRegistro from "../components/CtaRegistro.astro";
+import ComoLlegar from "../components/ComoLlegar.astro";
+import { evento } from "../data/evento";
+import { actividades } from "../data/actividades";
+import { cronograma } from "../data/cronograma";
+import { puntoDeAcceso } from "../data/comoLlegar";
+
+const secciones = [
+  { id: "hero", label: "Inicio" },
+  { id: "actividades", label: "Actividades" },
+  { id: "cronograma", label: "Cronograma" },
+  { id: "como-llegar", label: "Cómo llegar" },
+];
+---
+
+<BaseLayout
+  title="Festival de la Primavera y el Estudiante — 21 de septiembre en Plaza de Mayo"
+  description="Landing ficticia de portfolio para el Festival de la Primavera y el Estudiante, el 21 de septiembre en Plaza de Mayo, Buenos Aires."
+>
+  <Nav secciones={secciones} />
+  <main id="contenido">
+    <Hero evento={evento} />
+    <Actividades actividades={actividades} />
+    <Cronograma items={cronograma} actividades={actividades} />
+    <ComoLlegar punto={puntoDeAcceso} />
+    <section class="bg-verde-primario/10 px-4 py-16 text-center sm:px-6">
+      <div class="mx-auto max-w-xl">
+        <h2 class="text-3xl font-bold text-verde-oscuro sm:text-4xl">
+          ¿Te sumás?
+        </h2>
+        <p class="mt-2 text-texto-principal/80">
+          Contanos que vas a estar — es rápido y no hace falta nada más.
+        </p>
+        <div class="mt-6 flex justify-center">
+          <CtaRegistro variante="seccion" />
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

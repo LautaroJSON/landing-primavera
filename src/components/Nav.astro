@@ -1,0 +1,39 @@
+---
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  secciones: NavItem[];
+}
+
+const { secciones } = Astro.props;
+---
+
+<a
+  href="#contenido"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-verde-oscuro focus:px-4 focus:py-2 focus:text-fondo-blanco"
+>
+  Saltar al contenido
+</a>
+
+<header
+  class="sticky top-0 z-40 border-b border-black/5 bg-fondo-blanco/90 backdrop-blur"
+>
+  <nav
+    aria-label="Navegación principal"
+    class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-4 py-3 text-sm font-medium"
+  >
+    {
+      secciones.map((seccion) => (
+        <a
+          href={`#${seccion.id}`}
+          class="rounded px-1 py-0.5 text-texto-principal transition-colors hover:text-verde-oscuro"
+        >
+          {seccion.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>

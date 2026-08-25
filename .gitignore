@@ -1,0 +1,22 @@
+# Node / npm
+node_modules/
+npm-debug.log*
+
+# Astro
+dist/
+.astro/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log

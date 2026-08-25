@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/*
+  Paleta primaveral + acento celeste/blanco institucional (Constitución Principio IV).
+  Tailwind v4 es CSS-first: los tokens de color/tipografía se definen acá con @theme
+  en vez de en tailwind.config.mjs, y generan automáticamente utilidades
+  (bg-verde-primario, text-celeste-acento, font-display, etc).
+*/
+@theme {
+  --color-verde-primario: #3fa34d;
+  --color-verde-oscuro: #1f6b3a;
+  --color-amarillo: #ffc93c;
+  --color-rosa-violeta: #d6579e;
+  --color-celeste-acento: #7ec8e3;
+  --color-texto-principal: #1a1a1a;
+  --color-fondo-blanco: #ffffff;
+  --color-fondo-offwhite: #fbf8f3;
+
+  --font-display: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-fondo-blanco);
+  color: var(--color-texto-principal);
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* Foco visible consistente para navegación por teclado (FR-012) */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-celeste-acento);
+  outline-offset: 2px;
+}

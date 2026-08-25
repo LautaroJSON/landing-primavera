@@ -1,0 +1,49 @@
+---
+import type { PuntoDeAcceso } from "../types/content-schema";
+
+interface Props {
+  punto: PuntoDeAcceso;
+}
+
+const { punto } = Astro.props;
+---
+
+<section id="como-llegar" class="bg-fondo-offwhite px-4 py-16 sm:px-6">
+  <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:items-center">
+    <div
+      class="flex aspect-4/3 items-center justify-center rounded-2xl bg-gradient-to-br from-verde-primario/20 via-celeste-acento/25 to-amarillo/20 ring-1 ring-black/5"
+      role="img"
+      aria-label={`Ilustración de referencia de ubicación: ${punto.direccionReferencia}`}
+    >
+      <div class="text-center">
+        <span class="text-5xl" aria-hidden="true">📍</span>
+        <p class="mt-2 font-display text-lg font-bold text-verde-oscuro">
+          {punto.direccionReferencia}
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="text-3xl font-bold text-verde-oscuro sm:text-4xl">
+        Cómo llegar
+      </h2>
+      <p class="mt-2 text-texto-principal/80">
+        El festival es en <strong>{punto.direccionReferencia}</strong>, a cielo
+        abierto y de fácil acceso en transporte público.
+      </p>
+
+      <ul class="mt-5 space-y-2">
+        {
+          punto.mediosDeAcceso.map((medio) => (
+            <li class="flex items-start gap-2 text-sm text-texto-principal">
+              <span class="mt-0.5 text-verde-primario" aria-hidden="true">
+                ●
+              </span>
+              {medio}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

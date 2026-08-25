@@ -1,0 +1,71 @@
+---
+interface Props {
+  variante: "hero" | "seccion";
+}
+
+const { variante } = Astro.props;
+
+const copy = {
+  hero: { boton: "Registrate", confirmado: "¡Registro confirmado! ✓" },
+  seccion: { boton: "Quiero ir", confirmado: "¡Listo, te esperamos! ✓" },
+}[variante];
+
+// FR-016: sin lenguaje de urgencia/escasez — registro comunicado como abierto.
+const mensajeConfirmacion =
+  "¡Listo! Te esperamos el 21 de septiembre en Plaza de Mayo.";
+
+const clasesBoton =
+  variante === "hero"
+    ? "bg-fondo-blanco text-verde-oscuro hover:bg-fondo-blanco/90"
+    : "bg-verde-primario text-fondo-blanco hover:bg-verde-oscuro";
+---
+
+<div
+  class="inline-flex flex-col items-start gap-2"
+  data-cta-registro
+  data-estado="idle"
+  data-variante={variante}
+>
+  <button
+    type="button"
+    class:list={[
+      "cta-registro-boton rounded-full px-6 py-3 text-base font-semibold shadow-sm transition-colors focus-visible:outline-3 focus-visible:outline-celeste-acento disabled:cursor-default disabled:opacity-90",
+      clasesBoton,
+    ]}
+    data-copy-idle={copy.boton}
+    data-copy-confirmado={copy.confirmado}
+  >
+    {copy.boton}
+  </button>
+  <p
+    class="cta-registro-confirmacion sr-only text-sm font-medium"
+    aria-live="polite"
+  >
+    {mensajeConfirmacion}
+  </p>
+</div>
+
+<script>
+  // FR-006/FR-014: confirmación simulada en cliente, sin backend ni red.
+  // FR-016 (edge case): idempotente — clicks repetidos no duplican la confirmación.
+  document
+    .querySelectorAll<HTMLElement>("[data-cta-registro]")
+    .forEach((wrapper) => {
+      const boton = wrapper.querySelector<HTMLButtonElement>(
+        ".cta-registro-boton",
+      );
+      const confirmacion = wrapper.querySelector<HTMLElement>(
+        ".cta-registro-confirmacion",
+      );
+      if (!boton || !confirmacion) return;
+
+      boton.addEventListener("click", () => {
+        if (wrapper.dataset.estado === "confirmado") return;
+
+        wrapper.dataset.estado = "confirmado";
+        boton.textContent = boton.dataset.copyConfirmado ?? boton.textContent;
+        boton.disabled = true;
+        confirmacion.classList.remove("sr-only");
+      });
+    });
+</script>
