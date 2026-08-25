@@ -13,27 +13,54 @@ const { secciones } = Astro.props;
 
 <a
   href="#contenido"
-  class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-verde-oscuro focus:px-4 focus:py-2 focus:text-fondo-blanco"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-sm focus:bg-tinta focus:px-4 focus:py-2 focus:text-papel"
 >
   Saltar al contenido
 </a>
 
 <header
-  class="sticky top-0 z-40 border-b border-black/5 bg-fondo-blanco/90 backdrop-blur"
+  class="sticky top-0 z-40 border-b-2 border-tinta/10 bg-papel/95 backdrop-blur"
 >
   <nav
     aria-label="Navegación principal"
-    class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-5 gap-y-2 px-4 py-3 text-sm font-medium"
+    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-6"
   >
-    {
-      secciones.map((seccion) => (
-        <a
-          href={`#${seccion.id}`}
-          class="rounded px-1 py-0.5 text-texto-principal transition-colors hover:text-verde-oscuro"
-        >
-          {seccion.label}
-        </a>
-      ))
-    }
+    <a href="#hero" class="flex items-center gap-2">
+      <svg
+        viewBox="0 0 24 24"
+        class="h-6 w-6 shrink-0 text-sol-oscuro"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="1" x2="12" y2="4"></line>
+          <line x1="12" y1="20" x2="12" y2="23"></line>
+          <line x1="1" y1="12" x2="4" y2="12"></line>
+          <line x1="20" y1="12" x2="23" y2="12"></line>
+          <line x1="4.2" y1="4.2" x2="6.3" y2="6.3"></line>
+          <line x1="17.7" y1="17.7" x2="19.8" y2="19.8"></line>
+          <line x1="4.2" y1="19.8" x2="6.3" y2="17.7"></line>
+          <line x1="17.7" y1="6.3" x2="19.8" y2="4.2"></line>
+        </g>
+      </svg>
+      <span class="font-display text-lg font-semibold text-tinta">
+        Festival de la Primavera
+      </span>
+    </a>
+
+    <div
+      class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium"
+    >
+      {
+        secciones.map((seccion) => (
+          <a
+            href={`#${seccion.id}`}
+            class="rounded-xs px-1 py-0.5 text-tinta/80 transition-colors hover:text-follaje-oscuro"
+          >
+            {seccion.label}
+          </a>
+        ))
+      }
+    </div>
   </nav>
 </header>

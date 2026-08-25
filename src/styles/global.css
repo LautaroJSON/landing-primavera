@@ -1,23 +1,34 @@
 @import "tailwindcss";
 
 /*
-  Paleta primaveral + acento celeste/blanco institucional (Constitución Principio IV).
-  Tailwind v4 es CSS-first: los tokens de color/tipografía se definen acá con @theme
-  en vez de en tailwind.config.mjs, y generan automáticamente utilidades
-  (bg-verde-primario, text-celeste-acento, font-display, etc).
+  Identidad "programa de festival": papel + tinta como base, con acentos
+  primaverales (sol, follaje, flor) y celeste institucional usado con
+  moderación (Constitución Principio IV). Tailwind v4 es CSS-first: los
+  tokens se definen acá con @theme y generan utilidades automáticamente
+  (bg-sol, text-follaje-oscuro, font-display, etc).
+
+  Reglas de contraste (WCAG AA, FR-011): sol/flor/celeste son colores medios
+  pensados para BLOQUES (fondo + texto tinta/papel encima) o para las
+  variantes "-oscuro", nunca como texto de cuerpo directo sobre papel.
 */
 @theme {
-  --color-verde-primario: #3fa34d;
-  --color-verde-oscuro: #1f6b3a;
-  --color-amarillo: #ffc93c;
-  --color-rosa-violeta: #d6579e;
-  --color-celeste-acento: #7ec8e3;
-  --color-texto-principal: #1a1a1a;
-  --color-fondo-blanco: #ffffff;
-  --color-fondo-offwhite: #fbf8f3;
+  --color-papel: #fbf3e7;
+  --color-papel-alt: #f3e6d3;
+  --color-blanco: #ffffff;
+  --color-tinta: #221b14;
 
-  --font-display: "Poppins", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --color-sol: #e8a33d;
+  --color-sol-oscuro: #a86a1c;
+  --color-follaje: #2f7350;
+  --color-follaje-oscuro: #1e4d35;
+  --color-flor: #c1487d;
+  --color-flor-oscuro: #93335f;
+  --color-celeste: #6fa8c9;
+  --color-celeste-oscuro: #3d7da0;
+
+  --font-display: "Fraunces", "Iowan Old Style", "Georgia", serif;
+  --font-body: "Work Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
 }
 
 html {
@@ -25,8 +36,8 @@ html {
 }
 
 body {
-  background-color: var(--color-fondo-blanco);
-  color: var(--color-texto-principal);
+  background-color: var(--color-papel);
+  color: var(--color-tinta);
   font-family: var(--font-body);
 }
 
@@ -34,12 +45,51 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* Foco visible consistente para navegación por teclado (FR-012) */
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid var(--color-celeste-acento);
+  outline: 3px solid var(--color-celeste-oscuro);
   outline-offset: 2px;
+}
+
+/* Eyebrow/etiqueta mono en mayúsculas — vocabulario tipográfico de "programa
+   impreso" reutilizado en varias secciones (nav, hero, actividades, agenda). */
+.rotulo {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Botón "sellado": sombra sólida desplazada en vez de shadow-sm difuso;
+   al presionar, el botón "se hunde" hacia la sombra (feedback táctil barato,
+   solo transform/box-shadow — no dispara layout). */
+.boton-sello {
+  box-shadow: 4px 4px 0 0 var(--color-tinta);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.boton-sello:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--color-tinta);
+}
+
+.boton-sello:active,
+.boton-sello:disabled {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 0 var(--color-tinta);
+}
+
+.boton-sello:disabled {
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton-sello {
+    transition: none;
+  }
 }

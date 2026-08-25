@@ -2,10 +2,33 @@
 // FR-007: aclaración visible de proyecto ficticio de portfolio en todas las páginas.
 ---
 
-<footer class="bg-verde-oscuro px-4 py-10 text-fondo-blanco">
-  <div class="mx-auto max-w-3xl space-y-3 text-center text-sm leading-relaxed">
-    <p class="font-semibold">Festival de la Primavera y el Estudiante</p>
-    <p class="text-fondo-blanco/85">
+<footer class="bg-tinta px-4 py-12 text-papel">
+  <div class="mx-auto max-w-3xl text-center">
+    <svg
+      viewBox="-100 -100 200 200"
+      class="mx-auto h-8 w-8 text-sol"
+      aria-hidden="true"
+    >
+      <circle r="34" fill="currentColor"></circle>
+      {
+        Array.from({ length: 12 }, (_, i) => (i * 360) / 12).map((deg) => (
+          <rect
+            x="-3"
+            y="-96"
+            width="6"
+            height="34"
+            fill="currentColor"
+            transform={`rotate(${deg})`}
+          />
+        ))
+      }
+    </svg>
+    <p class="mt-3 font-display text-lg font-semibold">
+      Festival de la Primavera y el Estudiante
+    </p>
+    <p
+      class="mt-4 border-2 border-papel/25 px-4 py-3 text-sm leading-relaxed text-papel/80"
+    >
       Este es un proyecto ficticio creado con fines de portfolio/demostración de
       diseño web. El evento no es real ni tiene afiliación oficial con el
       Gobierno de la Ciudad de Buenos Aires ni con el Gobierno de Argentina.

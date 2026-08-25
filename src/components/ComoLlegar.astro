@@ -8,26 +8,39 @@ interface Props {
 const { punto } = Astro.props;
 ---
 
-<section id="como-llegar" class="bg-fondo-offwhite px-4 py-16 sm:px-6">
+<section id="como-llegar" class="bg-papel-alt px-4 py-20 sm:px-6">
   <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 md:items-center">
     <div
-      class="flex aspect-4/3 items-center justify-center rounded-2xl bg-gradient-to-br from-verde-primario/20 via-celeste-acento/25 to-amarillo/20 ring-1 ring-black/5"
+      class="relative flex aspect-4/3 items-center justify-center border-2 border-tinta bg-papel"
       role="img"
       aria-label={`Ilustración de referencia de ubicación: ${punto.direccionReferencia}`}
     >
+      <span
+        class="absolute top-3 left-3 h-3 w-3 border-2 border-tinta"
+        aria-hidden="true"></span>
+      <span
+        class="absolute top-3 right-3 h-3 w-3 border-2 border-tinta"
+        aria-hidden="true"></span>
+      <span
+        class="absolute bottom-3 left-3 h-3 w-3 border-2 border-tinta"
+        aria-hidden="true"></span>
+      <span
+        class="absolute right-3 bottom-3 h-3 w-3 border-2 border-tinta"
+        aria-hidden="true"></span>
       <div class="text-center">
         <span class="text-5xl" aria-hidden="true">📍</span>
-        <p class="mt-2 font-display text-lg font-bold text-verde-oscuro">
+        <p class="mt-2 font-display text-lg font-semibold text-follaje-oscuro">
           {punto.direccionReferencia}
         </p>
       </div>
     </div>
 
     <div>
-      <h2 class="text-3xl font-bold text-verde-oscuro sm:text-4xl">
+      <p class="rotulo text-sm font-bold text-follaje-oscuro">Ubicación</p>
+      <h2 class="mt-1 text-3xl font-semibold text-tinta sm:text-4xl">
         Cómo llegar
       </h2>
-      <p class="mt-2 text-texto-principal/80">
+      <p class="mt-2 text-tinta/75">
         El festival es en <strong>{punto.direccionReferencia}</strong>, a cielo
         abierto y de fácil acceso en transporte público.
       </p>
@@ -35,10 +48,11 @@ const { punto } = Astro.props;
       <ul class="mt-5 space-y-2">
         {
           punto.mediosDeAcceso.map((medio) => (
-            <li class="flex items-start gap-2 text-sm text-texto-principal">
-              <span class="mt-0.5 text-verde-primario" aria-hidden="true">
-                ●
-              </span>
+            <li class="flex items-start gap-3 text-sm text-tinta">
+              <span
+                class="mt-0.5 h-2.5 w-2.5 shrink-0 bg-celeste-oscuro"
+                aria-hidden="true"
+              />
               {medio}
             </li>
           ))

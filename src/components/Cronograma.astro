@@ -12,27 +12,31 @@ const itemsOrdenados = [...items].sort((a, b) => a.hora.localeCompare(b.hora));
 const actividadPorId = new Map(actividades.map((a) => [a.id, a]));
 ---
 
-<section id="cronograma" class="bg-fondo-blanco px-4 py-16 sm:px-6">
+<section id="cronograma" class="bg-papel px-4 py-20 sm:px-6">
   <div class="mx-auto max-w-3xl">
-    <h2 class="text-3xl font-bold text-verde-oscuro sm:text-4xl">Cronograma</h2>
-    <p class="mt-2 text-texto-principal/80">Así queda armado el día:</p>
+    <p class="rotulo text-sm font-bold text-follaje-oscuro">Hora por hora</p>
+    <h2 class="mt-1 text-3xl font-semibold text-tinta sm:text-4xl">
+      Cronograma
+    </h2>
+    <p class="mt-2 text-tinta/75">Así queda armado el día:</p>
 
-    <ol class="relative mt-8 border-l-2 border-verde-primario/30 pl-6">
+    <ol class="mt-10 border-t-2 border-tinta/15">
       {
         itemsOrdenados.map((item) => {
           const actividad = actividadPorId.get(item.actividadId);
           return (
-            <li class="relative mb-8 last:mb-0">
-              <span class="absolute top-1 -left-[1.95rem] h-3 w-3 rounded-full bg-verde-primario" />
-              <p class="text-sm font-bold text-verde-oscuro">{item.hora} h</p>
-              <p class="font-semibold text-texto-principal">
-                {actividad?.titulo}
-              </p>
-              {item.notaHorario && (
-                <p class="text-sm text-texto-principal/70">
-                  {item.notaHorario}
+            <li class="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-b-2 border-tinta/15 py-4">
+              <span class="rotulo w-20 shrink-0 border-2 border-tinta bg-follaje-oscuro px-2 py-1 text-center text-xs font-bold text-papel">
+                {item.hora}
+              </span>
+              <div class="min-w-0">
+                <p class="font-display text-lg font-semibold text-tinta">
+                  {actividad?.titulo}
                 </p>
-              )}
+                {item.notaHorario && (
+                  <p class="text-sm text-tinta/65">{item.notaHorario}</p>
+                )}
+              </div>
             </li>
           );
         })

@@ -6,8 +6,8 @@ interface Props {
 const { variante } = Astro.props;
 
 const copy = {
-  hero: { boton: "Registrate", confirmado: "¡Registro confirmado! ✓" },
-  seccion: { boton: "Quiero ir", confirmado: "¡Listo, te esperamos! ✓" },
+  hero: { boton: "Registrate", confirmado: "Registro confirmado" },
+  seccion: { boton: "Quiero ir", confirmado: "¡Te esperamos!" },
 }[variante];
 
 // FR-016: sin lenguaje de urgencia/escasez — registro comunicado como abierto.
@@ -16,12 +16,12 @@ const mensajeConfirmacion =
 
 const clasesBoton =
   variante === "hero"
-    ? "bg-fondo-blanco text-verde-oscuro hover:bg-fondo-blanco/90"
-    : "bg-verde-primario text-fondo-blanco hover:bg-verde-oscuro";
+    ? "bg-papel text-tinta hover:bg-papel"
+    : "bg-sol text-tinta hover:bg-sol";
 ---
 
 <div
-  class="inline-flex flex-col items-start gap-2"
+  class="inline-flex flex-col items-start gap-3"
   data-cta-registro
   data-estado="idle"
   data-variante={variante}
@@ -29,7 +29,7 @@ const clasesBoton =
   <button
     type="button"
     class:list={[
-      "cta-registro-boton rounded-full px-6 py-3 text-base font-semibold shadow-sm transition-colors focus-visible:outline-3 focus-visible:outline-celeste-acento disabled:cursor-default disabled:opacity-90",
+      "boton-sello cta-registro-boton border-2 border-tinta px-6 py-3 text-base font-semibold transition-colors focus-visible:outline-3 focus-visible:outline-celeste-oscuro disabled:cursor-default",
       clasesBoton,
     ]}
     data-copy-idle={copy.boton}
@@ -38,7 +38,7 @@ const clasesBoton =
     {copy.boton}
   </button>
   <p
-    class="cta-registro-confirmacion sr-only text-sm font-medium"
+    class="cta-registro-confirmacion rotulo sr-only -rotate-2 border-2 border-follaje-oscuro px-3 py-1 text-xs font-bold text-follaje-oscuro"
     aria-live="polite"
   >
     {mensajeConfirmacion}
