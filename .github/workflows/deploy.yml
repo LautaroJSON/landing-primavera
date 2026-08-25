@@ -21,13 +21,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar, buildear y preparar el artifact de Pages
+      - name: Instalar, buildear y subir artifact de Pages (Astro)
         uses: withastro/action@v4
-
-      - name: Subir artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+        # Esta acción ya hace: instala deps, corre `astro build` y ejecuta
+        # internamente actions/upload-pages-artifact. No agregar otro
+        # step de upload-pages-artifact después de este, o vas a duplicar
+        # el artifact y obtener un 409 Conflict.
 
   deploy:
     needs: build
